@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" fx:id="gestionea" prefHeight="520.0" prefWidth="800.0" style="-fx-background-color: #708090;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidevpfe.gui.userController">
+   <children>
+      <VBox layoutY="70.0" prefHeight="339.0" prefWidth="120.0" spacing="22.0" AnchorPane.bottomAnchor="111.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="866.0" AnchorPane.topAnchor="70.0">
+         <children>
+            <Label text="User Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Full Name">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Email">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="117.0" text="Confirm Password">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="42.0" text="Role">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label prefHeight="20.0" prefWidth="58.0" text="Adress">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Debut Stage" />
+         </children>
+      </VBox>
+      <TableView fx:id="tvea" layoutX="365.0" layoutY="89.0" onMouseReleased="#Action" prefHeight="285.0" prefWidth="639.0" AnchorPane.leftAnchor="365.0">
+        <columns>
+          <TableColumn fx:id="coluser" prefWidth="76.0" text="User Name" />
+          <TableColumn fx:id="colname" prefWidth="102.0" text="Full Name" />
+            <TableColumn fx:id="colemail" prefWidth="93.0" text="Email" />
+            <TableColumn fx:id="colpassword" prefWidth="95.0" text="password" />
+            <TableColumn fx:id="colrole" text="Rôle" />
+            <TableColumn fx:id="coladress" prefWidth="95.0" text="Adress" />
+            <TableColumn fx:id="coldate" prefWidth="95.0" text="Debut Stage" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnajout" layoutX="19.0" layoutY="404.0" mnemonicParsing="false" onAction="#ButtonAction" prefHeight="28.0" prefWidth="96.0" text="Ajouter" />
+      <Button fx:id="btnmodifier" layoutX="140.0" layoutY="404.0" mnemonicParsing="false" onAction="#ButtonAction" prefHeight="28.0" prefWidth="96.0" text="Modifier" />
+      <Button fx:id="btnsupprimer" layoutX="269.0" layoutY="404.0" mnemonicParsing="false" onAction="#ButtonAction" prefHeight="28.0" prefWidth="96.0" text="Supprimer">
+         <graphic>
+            <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@delete.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="28.0" layoutY="408.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@insert.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="17.0" fitWidth="17.0" layoutX="148.0" layoutY="410.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@update.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="tfuser" layoutX="103.0" layoutY="63.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="703.0" />
+      <TextField fx:id="tfemail" layoutX="103.0" layoutY="150.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="703.0" />
+      <TextField fx:id="tfadress" layoutX="105.0" layoutY="316.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="703.0" />
+      <ComboBox fx:id="cbrole" layoutX="130.0" layoutY="288.0" onAction="#ButtonAction" prefWidth="150.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="703.0" />
+      <TextField fx:id="tfname" layoutX="134.0" layoutY="109.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="703.0" />
+      <PasswordField fx:id="tfpassword" layoutX="134.0" layoutY="188.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="703.0" />
+      <PasswordField fx:id="tfconfirmp" layoutX="134.0" layoutY="240.0" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="703.0" />
+      <Label fx:id="logout" layoutX="23.0" layoutY="21.0" onMouseClicked="#logout" style="-fx-background-color: pink;" text="Logout" AnchorPane.bottomAnchor="481.0" AnchorPane.leftAnchor="23.0" AnchorPane.rightAnchor="939.0" AnchorPane.topAnchor="21.0" />
+   </children>
+</AnchorPane>
