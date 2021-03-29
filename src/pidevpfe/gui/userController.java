@@ -13,11 +13,13 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -31,6 +33,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -109,9 +114,45 @@ public class userController implements Initializable {
     @FXML
     private AnchorPane gestionea;
     
+
+    @FXML
+    private BarChart<String, Integer> barChart;
+    @FXML
+    private Button btnLoad;
+    @FXML
+    private LineChart<String, Integer> linechart;
     
+    public void loadchart() {
+    String query=" select year(debut_stage),count(*) from user GROUP by year(debut_stage) ";
+    XYChart.Series<String,Integer> series=new XYChart.Series<>();
+    Connection cnx = Myconnexion.getInstance().getConnection();
+        Statement st;
+        ResultSet rs;    
+    
+    try {
+       
+              st = cnx.createStatement();
+            rs = st.executeQuery(query);
+            while(rs.next()){
+                System.out.println("aaa");
+            series.getData().add(new XYChart.Data<>(rs.getInt(1)+"",+rs.getInt(2)));
+            }
+            barChart.getData().add(series);
+            
+            linechart.getData().add(series);
+          
+            
+            
+         } catch (Exception e) { 
+               e.printStackTrace();
+         }
+    
+    }
+      
    
     
+    
+    @FXML
     public void ButtonAction(ActionEvent evn) throws Exception {
        if(evn.getSource() == btnajout)
        {ajout();
@@ -121,6 +162,8 @@ public class userController implements Initializable {
        {supprimer();}
        else if (evn.getSource() == btnmodifier)
        {     modifier();}
+        else if (evn.getSource() == btnLoad)
+       {     loadchart();}
           }
     
     @Override
@@ -129,6 +172,7 @@ public class userController implements Initializable {
          cbrole.setItems(listcmb);
         cbrole.getSelectionModel().select("etudiant");
          showUser();
+         
     } 
 
       
@@ -249,6 +293,7 @@ colname.setCellValueFactory(new PropertyValueFactory<user, String>("full_name"))
             Logger.getLogger(userController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     
 
     public static Message prepareMessage(Session session, String myAccountEmail, String recepient) {
       
@@ -341,14 +386,16 @@ ObservableList<String> userL = FXCollections.observableArrayList();
             stm.setString(5, tfconfirmp.getText());
             stm.setString(6,s);
             stm.setString(7, tfadress.getText());
-            stm.setString(8, ((TextField)date.getEditor()).getText());
+           String da=date.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            stm.setString(8,da);
 
             
 int i = stm.executeUpdate();
             System.out.println(i);
              }
 
-            
+             
+         
             
 
         }catch (Exception e){
@@ -358,8 +405,7 @@ int i = stm.executeUpdate();
        
     }
         
-        @FXML
-    void select(ActionEvent event) {
+        void select(ActionEvent event) {
 String s = cbrole.getSelectionModel().getSelectedItem().toString();
        
     } 
@@ -412,6 +458,7 @@ String s = cbrole.getSelectionModel().getSelectedItem().toString();
     }
 
    
+    @FXML
     public void Action(MouseEvent event) {
     user u=tvea.getSelectionModel().getSelectedItem();
     tfuser.setText(""+u.getUser_name());
@@ -426,6 +473,7 @@ String s = cbrole.getSelectionModel().getSelectedItem().toString();
    
     }
     
+    @FXML
     public void logout() throws IOException{
     
      logout.getScene().getWindow().hide();
@@ -435,7 +483,8 @@ String s = cbrole.getSelectionModel().getSelectedItem().toString();
                 mainStage.setScene(scene);
                 mainStage.show();
     }
-      
+
+   
        
 }
     
