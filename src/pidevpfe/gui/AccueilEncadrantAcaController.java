@@ -10,28 +10,16 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
-import pidevpfe.entities.Etudiant;
-import pidevpfe.entities.user;
 import pidevpfe.tools.Myconnexion;
 
 /**
@@ -39,83 +27,32 @@ import pidevpfe.tools.Myconnexion;
  *
  * @author ramzuss
  */
-public class AccueilResponsableController implements Initializable {
+public class AccueilEncadrantAcaController implements Initializable {
 
-   @FXML
+     @FXML
     private Label laccueil;
-
-    @FXML
-    private Label lgereruser;
-    
     @FXML
     private Label lgererprofile;
-    
-    @FXML
-    private Label laffecter;
-    
     @FXML
     private Label changepassword;
-    
     @FXML
-    public  Label lnom;
+    private Label lemail;
     @FXML
-    public  Label lemail;
+    private Label lnom;
+    @FXML
+    private Label visualiser;
     
-   
-    
-   
-   
-   
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
+        // TODO
     }    
-    
-  
-    
-     
-    
-   
-     public void seTtext(String fullname,String email){
+    public void seTtext(String fullname,String email){
     this.lnom.setText(fullname);
     this.lemail.setText(email);
     }
-   
-    @FXML
-    public void changepassword() throws IOException{
     
-     changepassword.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("changePassword.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-    }
-    
-    @FXML
-     public void gererUser() throws IOException{
-    
-     lgereruser.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("GererUser.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-    }
-     
-    @FXML
-     public void affecterEncadrant() throws IOException{
-    
-     laffecter.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("AffecterEncadrant.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-    }
-     
-     PreparedStatement pst = null;
+    PreparedStatement pst = null;
      ResultSet rs = null;
     
      @FXML
@@ -174,6 +111,79 @@ public class AccueilResponsableController implements Initializable {
   
     }
      
-}
+    
+   @FXML
+    public void changepassword() throws IOException{
+    
+     changepassword.getScene().getWindow().hide();
+                Parent root = FXMLLoader.load(getClass().getResource("changePassword.fxml"));
+                Stage mainStage = new Stage();
+                Scene scene = new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+
+    @FXML
+    private void visualiserEtudiants(MouseEvent event) throws IOException {
+    
+       Connection cnx = Myconnexion.getInstance().getConnection();
+    String sql = "Select * from user where email=?";
+        
+    try {
+            pst = cnx.prepareStatement(sql);
+            pst.setString(1, lemail.getText());
+            
+            
+            
+            rs = pst.executeQuery();
+            
+            if(rs.next()){ 
+               
+               
+           
+                     
+                    
+             String username=rs.getString(2);
+             String fullname=rs.getString(3);
+             String adresse=rs.getString(8);
+             
+   FXMLLoader loader=new FXMLLoader();
+   loader.setLocation(getClass().getResource("VisualiserEtudiants.fxml"));
+        try {
+            loader.load();
+        } catch (Exception e) {
+        }
+        
+        VisualiserEtudiantsController ve=loader.getController();
+        ve.seTtext(lemail.getText());
+        Parent p=loader.getRoot();
+        Stage stage=new Stage();
+        stage.setScene(new Scene(p));
+        stage.show();
      
+     visualiser.getScene().getWindow().hide();  //pour fermer interface login
+
+       
+  
+                
+               
+            
+                
+            
+            } 
+          
+                } 
+    catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+        }
+  
+    }
      
+        
+        
+        
+    }
+
+    
+     
+   

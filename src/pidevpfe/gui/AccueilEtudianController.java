@@ -10,28 +10,16 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javax.swing.JOptionPane;
-import pidevpfe.entities.Etudiant;
-import pidevpfe.entities.user;
 import pidevpfe.tools.Myconnexion;
 
 /**
@@ -39,83 +27,28 @@ import pidevpfe.tools.Myconnexion;
  *
  * @author ramzuss
  */
-public class AccueilResponsableController implements Initializable {
-
-   @FXML
-    private Label laccueil;
+public class AccueilEtudianController implements Initializable {
 
     @FXML
-    private Label lgereruser;
-    
+    private Label laccueil;
     @FXML
     private Label lgererprofile;
-    
-    @FXML
-    private Label laffecter;
-    
     @FXML
     private Label changepassword;
-    
     @FXML
-    public  Label lnom;
+    private Label lemail;
     @FXML
-    public  Label lemail;
-    
-   
-    
-   
-   
-   
-    
+    private Label lnom;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    
+        // TODO
     }    
     
-  
-    
-     
-    
-   
-     public void seTtext(String fullname,String email){
-    this.lnom.setText(fullname);
-    this.lemail.setText(email);
-    }
-   
-    @FXML
-    public void changepassword() throws IOException{
-    
-     changepassword.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("changePassword.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-    }
-    
-    @FXML
-     public void gererUser() throws IOException{
-    
-     lgereruser.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("GererUser.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-    }
-     
-    @FXML
-     public void affecterEncadrant() throws IOException{
-    
-     laffecter.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("AffecterEncadrant.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-    }
-     
-     PreparedStatement pst = null;
+    PreparedStatement pst = null;
      ResultSet rs = null;
     
      @FXML
@@ -174,6 +107,16 @@ public class AccueilResponsableController implements Initializable {
   
     }
      
+    
+   @FXML
+    public void changepassword() throws IOException{
+    
+     changepassword.getScene().getWindow().hide();
+                Parent root = FXMLLoader.load(getClass().getResource("changePassword.fxml"));
+                Stage mainStage = new Stage();
+                Scene scene = new Scene(root);
+                mainStage.setScene(scene);
+                mainStage.show();
+    }
+
 }
-     
-     

@@ -6,16 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidevpfe.gui.AccueilResponsableController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pidevpfe.gui.AccueilEncadrantAcaController">
    <children>
       <VBox layoutX="8.0" layoutY="83.0" prefHeight="234.0" prefWidth="177.0" spacing="17.0">
          <children>
             <Label fx:id="laccueil" prefHeight="30.0" prefWidth="79.0" text="Accueil">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label fx:id="lgereruser" onMouseClicked="#gererUser" text="Gérer utlisateur">
                <font>
                   <Font size="17.0" />
                </font>
@@ -25,12 +20,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="laffecter" onMouseClicked="#affecterEncadrant" text="Affecter encadrant">
+            <Label fx:id="changepassword" onMouseClicked="#changepassword" text="Changer mot de passe">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label fx:id="changepassword" onMouseClicked="#changepassword" text="Changer mot de passe">
+            <Label fx:id="visualiser" onMouseClicked="#visualiserEtudiants" prefHeight="26.0" prefWidth="163.0" text="Visualiser Etudiants">
                <font>
                   <Font size="17.0" />
                </font>

@@ -12,6 +12,7 @@ import java.security.MessageDigest;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 import java.util.ResourceBundle;
@@ -56,7 +57,7 @@ public class LoginController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
-    private TextField tfemail;
+    public TextField tfemail;
 
      @FXML
     private PasswordField tfpassword;
@@ -66,42 +67,30 @@ public class LoginController implements Initializable {
     private static TextField tfnom;
 
      
-    
+    @FXML
+    private AccueilResponsableController acc;
     
      @FXML
     private Button button;
 
     
+     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
       
       
     } 
+    
    
     
-     @FXML
-     public void test(ActionEvent evn) throws IOException  {
-       
-           
-           
-          //  Parent root = (Parent) loader.load();    
-            
-            
-
-                
-           
-
-           
-            
-            
-      
-     
-     }
+    
+    
     
     
     PreparedStatement pst = null;
      ResultSet rs = null;
-       public void Login (MouseEvent event ) throws Exception{  
+       public void Login () throws Exception{  
+           
     Connection cnx = Myconnexion.getInstance().getConnection();
     String sql = "Select * from user where email = ? and password = ?  ";
         
@@ -116,30 +105,74 @@ public class LoginController implements Initializable {
             rs = pst.executeQuery();
             
             if(rs.next()){ 
+               
+               
             String role =rs.getString("role");
                 if(role.equals("responsable des stages"))
-                {      button.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("accueilResponsable.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-                Stage stage = (Stage) button.getScene().getWindow(); stage.close();
-              
-                
-                
+                {     
+                    
+             String fullname=rs.getString(3);
+             String email=rs.getString(4);
+   FXMLLoader loader=new FXMLLoader();
+   loader.setLocation(getClass().getResource("accueilResponsable.fxml"));
+        try {
+            loader.load();
+        } catch (Exception e) {
+        }
+        AccueilResponsableController acc=loader.getController();
+        acc.seTtext(fullname,email);
+        Parent p=loader.getRoot();
+        Stage stage=new Stage();
+        stage.setScene(new Scene(p));
+        stage.show();
+     
+      button.getScene().getWindow().hide();  //pour fermer interface login
+
                
             }  
                  if(role.equals("Etudiant"))
-                {      button.getScene().getWindow().hide();
-                Parent root = FXMLLoader.load(getClass().getResource("Etudiant.fxml"));
-                Stage mainStage = new Stage();
-                Scene scene = new Scene(root);
-                mainStage.setScene(scene);
-                mainStage.show();
-                Stage stage = (Stage) button.getScene().getWindow(); stage.close();
+                {     
+                     String fullname=rs.getString(3);
+             String email=rs.getString(4);
+   FXMLLoader loader=new FXMLLoader();
+   loader.setLocation(getClass().getResource("accueilResponsable.fxml"));
+        try {
+            loader.load();
+        } catch (Exception e) {
+        }
+        AccueilResponsableController acc=loader.getController();
+        acc.seTtext(fullname,email);
+        Parent p=loader.getRoot();
+        Stage stage=new Stage();
+        stage.setScene(new Scene(p));
+        stage.show();
+     
+      button.getScene().getWindow().hide();  //pour fermer interface login
+
+                    
             }
-            
+            if(role.equals("Encadrant Académique "))
+                {     
+                     String fullname=rs.getString(3);
+             String email=rs.getString(4);
+   FXMLLoader loader=new FXMLLoader();
+   loader.setLocation(getClass().getResource("accueilEncadrantAca.fxml"));
+        try {
+            loader.load();
+        } catch (Exception e) {
+        }
+        AccueilEncadrantAcaController aea=loader.getController();
+        aea.seTtext(fullname,email);
+        Parent p=loader.getRoot();
+        Stage stage=new Stage();
+        stage.setScene(new Scene(p));
+        stage.show();
+     
+      button.getScene().getWindow().hide();  //pour fermer interface login
+
+                    
+            }
+                 
             } 
           
             else
